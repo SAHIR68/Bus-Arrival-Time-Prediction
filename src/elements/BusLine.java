@@ -7,10 +7,10 @@ public class BusLine {
     private List <BusStop> stations;
     private HashMap <BusStop, Integer> arrivingLocationTable;
 
-    public BusLine(String lineName, List<BusStop> stations, HashMap<BusStop, Integer> arrivingTimeTable) {
+    public BusLine(String lineName, List<BusStop> stations, HashMap <BusStop, Integer> arrivingLocationTable) {
         this.lineName = lineName;
         this.stations = stations;
-        this.arrivingLocationTable = arrivingTimeTable;
+        this.arrivingLocationTable = arrivingLocationTable;
     }
 
     public String getLineName() {

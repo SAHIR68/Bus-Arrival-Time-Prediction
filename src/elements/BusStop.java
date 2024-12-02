@@ -1,6 +1,8 @@
 package elements;
 
 public class BusStop {
-    private Double Location;
+    private String name;
+    private Float Location;
+    private Integer numberOfStopInBusLine;
 
 }

@@ -4,8 +4,16 @@ public class Bus {
 
     private boolean inService;
     private BusStop location;
-    private Integer speed;
+    private Float averageSpeed;
+    private BusLine currentLine;
+    public void startService(Bus bus){
+        bus.inService = true;
+    }
+    public void stopService(Bus bus){
+        bus.inService = false;
+    }
 
+    //Getters and Setters
     public boolean isInService() {
         return inService;
     }
@@ -21,18 +29,5 @@ public class Bus {
     public void setLocation(BusStop location) {
         this.location = location;
     }
-
-    public void startService(Bus bus){
-        bus.inService = true;
-    }
-    public void stopService(Bus bus){
-        bus.inService = false;
-    }
-
-
-
-
-
-
 
 }
