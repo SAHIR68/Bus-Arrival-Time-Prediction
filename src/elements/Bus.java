@@ -13,6 +13,8 @@ public class Bus {
     private BusRoute currentLine;
     private Date lastReportedTime;
 
+    public Bus(){}
+
     public Bus(String id, BusSituation situation, boolean inService, BusStatus location, Float averageSpeed, BusRoute currentLine, Date lastReportedTime) {
         this.id = id;
         this.situation = situation;
