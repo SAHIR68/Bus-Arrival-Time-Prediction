@@ -8,12 +8,12 @@ public class Bus {
 
     private BusSituation situation;
     private boolean inService;
-    private BusLocation location;
+    private BusStatus location;
     private Float averageSpeed;
     private BusRoute currentLine;
     private Date lastReportedTime;
 
-    public Bus(String id, BusSituation situation, boolean inService, BusLocation location, Float averageSpeed, BusRoute currentLine, Date lastReportedTime) {
+    public Bus(String id, BusSituation situation, boolean inService, BusStatus location, Float averageSpeed, BusRoute currentLine, Date lastReportedTime) {
         this.id = id;
         this.situation = situation;
         this.inService = inService;
@@ -28,10 +28,6 @@ public class Bus {
         return new Message();
     }
 
-    public boolean isLineComplete(Bus bus){
-        return false;
-    }
-
     public void startService(Bus bus){
         bus.inService = true;
     }
@@ -40,6 +36,24 @@ public class Bus {
     }
 
     //Getters and Setters
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public BusSituation getSituation() {
+        return situation;
+    }
+
+    public void setSituation(BusSituation situation) {
+        this.situation = situation;
+    }
+
     public boolean isInService() {
         return inService;
     }
@@ -48,6 +62,35 @@ public class Bus {
         this.inService = inService;
     }
 
+    public BusStatus getLocation() {
+        return location;
+    }
 
+    public void setLocation(BusStatus location) {
+        this.location = location;
+    }
 
+    public Float getAverageSpeed() {
+        return averageSpeed;
+    }
+
+    public void setAverageSpeed(Float averageSpeed) {
+        this.averageSpeed = averageSpeed;
+    }
+
+    public BusRoute getCurrentLine() {
+        return currentLine;
+    }
+
+    public void setCurrentLine(BusRoute currentLine) {
+        this.currentLine = currentLine;
+    }
+
+    public Date getLastReportedTime() {
+        return lastReportedTime;
+    }
+
+    public void setLastReportedTime(Date lastReportedTime) {
+        this.lastReportedTime = lastReportedTime;
+    }
 }
