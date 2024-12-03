@@ -3,8 +3,10 @@ package elements;
 public class Bus {
 
     private String id;
+
+    private BusSituation situation;
     private boolean inService;
-    private BusStop location;
+    private BusLocation location;
     private Float averageSpeed;
     private BusLine currentLine;
     public void startService(Bus bus){
@@ -23,12 +25,6 @@ public class Bus {
         this.inService = inService;
     }
 
-    public BusStop getLocation() {
-        return location;
-    }
 
-    public void setLocation(BusStop location) {
-        this.location = location;
-    }
 
 }
