@@ -5,6 +5,7 @@ public class Message {
     private String busId;
     private String busStopId;
     private Date sendingTime;
+    private MessageType type;
 
     public Message(String busId, String busStopId, Date sendingTime) {
         this.busId = busId;
