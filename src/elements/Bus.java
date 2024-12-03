@@ -2,6 +2,7 @@ package elements;
 
 public class Bus {
 
+    private String id;
     private boolean inService;
     private BusStop location;
     private Float averageSpeed;
