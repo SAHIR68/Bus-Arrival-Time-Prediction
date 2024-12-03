@@ -1,5 +1,7 @@
 package elements;
 
+import java.util.Date;
+
 public class Bus {
 
     private String id;
@@ -8,7 +10,28 @@ public class Bus {
     private boolean inService;
     private BusLocation location;
     private Float averageSpeed;
-    private BusLine currentLine;
+    private BusRoute currentLine;
+    private Date lastReportedTime;
+
+    public Bus(String id, BusSituation situation, boolean inService, BusLocation location, Float averageSpeed, BusRoute currentLine, Date lastReportedTime) {
+        this.id = id;
+        this.situation = situation;
+        this.inService = inService;
+        this.location = location;
+        this.averageSpeed = averageSpeed;
+        this.currentLine = currentLine;
+        this.lastReportedTime = lastReportedTime;
+    }
+
+    public void moveToNextStation(){}
+    public Message reportStatus(Bus bus){
+        return new Message();
+    }
+
+    public boolean isLineComplete(Bus bus){
+        return false;
+    }
+
     public void startService(Bus bus){
         bus.inService = true;
     }

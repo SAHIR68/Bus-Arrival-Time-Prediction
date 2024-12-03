@@ -7,6 +7,8 @@ public class Message {
     private Date sendingTime;
     private MessageType type;
 
+    public Message() {
+    }
     public Message(String busId, String busStopId, Date sendingTime) {
         this.busId = busId;
         this.busStopId = busStopId;
