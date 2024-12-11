@@ -2,49 +2,79 @@ package elements;
 
 import java.util.Date;
 
-public class Bus {
+public class Bus implements Runnable {
 
-    private String id;
-
+    private Integer id;
+    private BusRoute busRoute;
     private BusSituation situation;
     private boolean inService;
-    private BusStatus location;
-    private Float averageSpeed;
-    private BusRoute currentLine;
+    private BusStatus status;
+    private Integer averageSpeed;// Km/h
+    private BusRoute currentRoute;
     private Date lastReportedTime;
+    private BusStop Loacation;
+    private Date arrivingTime;
 
-    public Bus(){}
+    public Bus() {
+    }
 
-    public Bus(String id, BusSituation situation, boolean inService, BusStatus location, Float averageSpeed, BusRoute currentLine, Date lastReportedTime) {
+    public Bus(Integer id, BusSituation situation, boolean inService, BusStatus status, Integer averageSpeed, BusRoute currentRoute, Date lastReportedTime) {
         this.id = id;
         this.situation = situation;
         this.inService = inService;
-        this.location = location;
+        this.status = status;
         this.averageSpeed = averageSpeed;
-        this.currentLine = currentLine;
+        this.currentRoute = currentRoute;
         this.lastReportedTime = lastReportedTime;
     }
 
-    public void moveToNextStation(){}
-    public Message reportStatus(Bus bus){
+    public Date getArrivingTime() {
+        return arrivingTime;
+    }
+
+    public void setArrivingTime(Date arrivingTime) {
+        this.arrivingTime = arrivingTime;
+    }
+
+    public BusRoute getBusRoute() {
+        return busRoute;
+    }
+
+    public void setBusRoute(BusRoute busRoute) {
+        this.busRoute = busRoute;
+    }
+
+    public BusStop getLoacation() {
+        return Loacation;
+    }
+
+    public void setLoacation(BusStop loacation) {
+        Loacation = loacation;
+    }
+
+    public void moveToNextStation() {
+    }
+
+    public Message reportStatus(Bus bus) {
         return new Message();
     }
 
-    public void startService(Bus bus){
+    public void startService(Bus bus) {
         bus.inService = true;
     }
-    public void stopService(Bus bus){
+
+    public void stopService(Bus bus) {
         bus.inService = false;
     }
 
     //Getters and Setters
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -64,28 +94,28 @@ public class Bus {
         this.inService = inService;
     }
 
-    public BusStatus getLocation() {
-        return location;
+    public BusStatus getStatus() {
+        return status;
     }
 
-    public void setLocation(BusStatus location) {
-        this.location = location;
+    public void setStatus(BusStatus status) {
+        this.status = status;
     }
 
-    public Float getAverageSpeed() {
+    public Integer getAverageSpeed() {
         return averageSpeed;
     }
 
-    public void setAverageSpeed(Float averageSpeed) {
+    public void setAverageSpeed(Integer averageSpeed) {
         this.averageSpeed = averageSpeed;
     }
 
-    public BusRoute getCurrentLine() {
-        return currentLine;
+    public BusRoute getCurrentRoute() {
+        return currentRoute;
     }
 
-    public void setCurrentLine(BusRoute currentLine) {
-        this.currentLine = currentLine;
+    public void setCurrentRoute(BusRoute currentRoute) {
+        this.currentRoute = currentRoute;
     }
 
     public Date getLastReportedTime() {
@@ -94,5 +124,30 @@ public class Bus {
 
     public void setLastReportedTime(Date lastReportedTime) {
         this.lastReportedTime = lastReportedTime;
+    }
+
+    public Integer calculationTravelTime(Bus bus) {
+        Integer distance = 5;//Km
+        Integer travelTime = (distance / getAverageSpeed()) * 60 * 60 * 1000;//milliSecond
+        return travelTime;
+    }
+
+    @Override
+    public void run() {
+        Bus bus = new Bus();
+        Integer indexOfBusStop;
+        while(getBusRoute().isLineCompleted(bus)){
+            try {
+                indexOfBusStop = 1;
+                System.err.println(bus.getId() + "on the route of" + bus.getBusRoute().getRouteName() + "is travelling to " + bus.getBusRoute().getNextStation());
+                Thread.sleep(calculationTravelTime(bus));//time to get to the next station
+
+                indexOfBusStop++;
+                System.err.println(bus.getId() + "reached to the " + bus.getBusRoute().nextBusStop(indexOfBusStop));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        System.err.println(bus.getId() + "completed the" + bus.getBusRoute().getRouteName());
     }
 }

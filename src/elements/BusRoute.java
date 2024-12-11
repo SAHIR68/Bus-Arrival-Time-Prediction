@@ -3,12 +3,13 @@ package elements;
 import java.util.*;
 
 public class BusRoute {
-    private String lineName;
+    private String routeName;
     private List <BusStop> stations;
-    private HashMap <BusStop, Float> locationTable;
+    private HashMap <BusStop, Integer> locationTable;
+    private HashMap <Integer , BusStop> busStopTable;
 
-    public BusRoute(String lineName, List<BusStop> stations, HashMap <BusStop, Integer> arrivingLocationTable) {
-        this.lineName = lineName;
+    public BusRoute(String routeName, List<BusStop> stations, HashMap <BusStop, Integer> arrivingLocationTable) {
+        this.routeName = routeName;
         this.stations = stations;
         this.locationTable = locationTable;
     }
@@ -21,16 +22,20 @@ public class BusRoute {
         return 3;
     }
 
-    public boolean isLineComplete(Bus bus){
+    public boolean isLineCompleted(Bus bus){
         return false;
     }
 
     //getter and setter
-    public String getLineName() {
-        return lineName;
+    public String getRouteName() {
+        return routeName;
     }
 
-    public void setLineName(String lineName) {
-        this.lineName = lineName;
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
+    }
+
+    public BusStop nextBusStop(Integer busStopIndex){
+        return busStopTable.get(busStopIndex + 1);
     }
 }
