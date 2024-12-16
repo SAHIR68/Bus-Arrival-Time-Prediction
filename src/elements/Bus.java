@@ -1,6 +1,6 @@
 package elements;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class Bus implements Runnable {
 
@@ -11,14 +11,14 @@ public class Bus implements Runnable {
     private BusStatus status;
     private Integer averageSpeed;// Km/h
     private BusRoute currentRoute;
-    private Date lastReportedTime;
-    private BusStop Loacation;
-    private Date arrivingTime;
+    private Instant lastReportedTime;
+    private BusStop busStop;
+    private Instant arrivingTime;
 
     public Bus() {
     }
 
-    public Bus(Integer id, BusSituation situation, boolean inService, BusStatus status, Integer averageSpeed, BusRoute currentRoute, Date lastReportedTime) {
+    public Bus(Integer id, BusSituation situation, boolean inService, BusStatus status, Integer averageSpeed, BusRoute currentRoute, Instant lastReportedTime) {
         this.id = id;
         this.situation = situation;
         this.inService = inService;
@@ -28,11 +28,15 @@ public class Bus implements Runnable {
         this.lastReportedTime = lastReportedTime;
     }
 
-    public Date getArrivingTime() {
-        return arrivingTime;
+    public Instant getArrivingTime(Bus bus) {
+        if(bus.getStatus().equals(BusStatus.AT_THE_STATION))
+            return bus.arrivingTime;
+        else
+            System.out.println("Not arrived");
+        return bus.arrivingTime;
     }
 
-    public void setArrivingTime(Date arrivingTime) {
+    public void setArrivingTime(Instant arrivingTime) {
         this.arrivingTime = arrivingTime;
     }
 
@@ -44,19 +48,26 @@ public class Bus implements Runnable {
         this.busRoute = busRoute;
     }
 
-    public BusStop getLoacation() {
-        return Loacation;
+    public BusStop getBusStop() {
+        return busStop;
     }
 
-    public void setLoacation(BusStop loacation) {
-        Loacation = loacation;
+    public void setBusStop(BusStop busStop) {
+        this.busStop = busStop;
     }
 
     public void moveToNextStation() {
+
     }
 
-    public Message reportStatus(Bus bus) {
-        return new Message();
+    public Message reportStatus(Bus bus) {//todo without being on the bus station we cant send report
+        Message message = new Message();
+        if (bus.getStatus().equals(BusStatus.AT_THE_STATION)){
+            message.setBusId(id);
+            message.setBusStopId(busStop.getId());
+            message.setSendingTime(arrivingTime);
+        }
+        return message;
     }
 
     public void startService(Bus bus) {
@@ -67,7 +78,22 @@ public class Bus implements Runnable {
         bus.inService = false;
     }
 
-    //Getters and Setters
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "id=" + id +
+                ", busRoute=" + busRoute +
+                ", situation=" + situation +
+                ", inService=" + inService +
+                ", status=" + status +
+                ", averageSpeed=" + averageSpeed +
+                ", currentRoute=" + currentRoute +
+                ", lastReportedTime=" + lastReportedTime +
+                ", Location=" + busStop +
+                ", arrivingTime=" + arrivingTime +
+                '}';
+    }
+//Getters and Setters
 
 
     public Integer getId() {
@@ -118,11 +144,11 @@ public class Bus implements Runnable {
         this.currentRoute = currentRoute;
     }
 
-    public Date getLastReportedTime() {
+    public Instant getLastReportedTime() {
         return lastReportedTime;
     }
 
-    public void setLastReportedTime(Date lastReportedTime) {
+    public void setLastReportedTime(Instant lastReportedTime) {
         this.lastReportedTime = lastReportedTime;
     }
 
@@ -139,7 +165,7 @@ public class Bus implements Runnable {
         while(getBusRoute().isLineCompleted(bus)){
             try {
                 indexOfBusStop = 1;
-                System.err.println(bus.getId() + "on the route of" + bus.getBusRoute().getRouteName() + "is travelling to " + bus.getBusRoute().getNextStation());
+                System.err.println(bus.getId() + "on the route of" + bus.getBusRoute().getRouteName() + "is travelling to " + bus.getBusRoute().getNextStation(bus));
                 Thread.sleep(calculationTravelTime(bus));//time to get to the next station
 
                 indexOfBusStop++;

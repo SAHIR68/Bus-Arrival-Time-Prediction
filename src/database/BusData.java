@@ -18,8 +18,8 @@ public class BusData {
 
                 preparedStatement.setInt(1, bus.getId());
                 preparedStatement.setString(2, bus.getBusRoute().toString());
-                preparedStatement.setString(3, bus.getLoacation().toString());
-                preparedStatement.setString(4, bus.getArrivingTime().toString());
+                preparedStatement.setString(3, bus.getBusStop().toString());
+                //preparedStatement.setString(4, bus.getArrivingTime().toString());
 
 
             } catch (SQLException e) {

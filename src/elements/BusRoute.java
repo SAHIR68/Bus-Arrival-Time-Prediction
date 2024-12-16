@@ -1,12 +1,13 @@
 package elements;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BusRoute {
     private String routeName;
     private List <BusStop> stations;
-    private HashMap <BusStop, Integer> locationTable;
-    private HashMap <Integer , BusStop> busStopTable;
+    private ConcurrentHashMap <BusStop, Integer> locationTable;//todo changing the type of the map
+    private ConcurrentHashMap <Integer , BusStop> busStopTable;
 
     public BusRoute(String routeName, List<BusStop> stations, HashMap <BusStop, Integer> arrivingLocationTable) {
         this.routeName = routeName;
@@ -14,8 +15,8 @@ public class BusRoute {
         this.locationTable = locationTable;
     }
     //Methods
-    public BusStop getNextStation(){
-        return new BusStop();
+    public BusStop getNextStation(Bus bus){
+        return busStopTable.get( bus.getBusStop().getId() + 1);
     }
 
     public Integer getTravelTime(BusStop busStop1, BusStop busStop2){

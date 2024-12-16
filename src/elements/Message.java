@@ -1,41 +1,42 @@
 package elements;
+import java.time.Instant;
 import java.util.Date;
 
 public class Message {
-    private String busId;
-    private String busStopId;
-    private Date sendingTime;
+    private Integer busId;
+    private Integer busStopId;
+    private Instant sendingTime;
     private MessageType type;
 
     public Message() {
     }
-    public Message(String busId, String busStopId, Date sendingTime) {
+    public Message(Integer busId, Integer busStopId, Instant sendingTime) {
         this.busId = busId;
         this.busStopId = busStopId;
         this.sendingTime = sendingTime;
     }
 
-    public String getBusId() {
+    public Integer getBusId() {
         return busId;
     }
 
-    public void setBusId(String busId) {
+    public void setBusId(Integer busId) {
         this.busId = busId;
     }
 
-    public String getBusStopId() {
+    public Integer getBusStopId() {
         return busStopId;
     }
 
-    public void setBusStopId(String busStopId) {
+    public void setBusStopId(Integer busStopId) {
         this.busStopId = busStopId;
     }
 
-    public Date getSendingTime() {
+    public Instant getSendingTime() {
         return sendingTime;
     }
 
-    public void setSendingTime(Date sendingTime) {
+    public void setSendingTime(Instant sendingTime) {
         this.sendingTime = sendingTime;
     }
 }
